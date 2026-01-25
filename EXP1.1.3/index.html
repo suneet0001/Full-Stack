@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Dashboard</title>
+
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-color: #1e293b;
+            --text-color: white;
+        }
+
+        body.light {
+            --bg-color: #f1f5f9;
+            --card-color: #ffffff;
+            --text-color: black;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial;
+            background: var(--bg-color);
+            color: var(--text-color);
+        }
+
+        .dashboard {
+            display: grid;
+            grid-template-columns: 200px 1fr 1fr 1fr;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .header {
+            grid-column: 1 / -1;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .card {
+            background: var(--card-color);
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .nav {
+            grid-row: 2 / 4;
+        }
+
+        button {
+            padding: 8px 12px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="dashboard">
+
+    <div class="header">
+        <h2>Admin Dashboard</h2>
+        <button onclick="toggleTheme()">☀ Light Mode</button>
+    </div>
+
+    <div class="card nav">Navigation</div>
+    <div class="card">Analytics</div>
+    <div class="card">Users</div>
+    <div class="card">Settings</div>
+
+</div>
+
+<script>
+    function toggleTheme() {
+        document.body.classList.toggle("light");
+
+        if (document.body.classList.contains("light")) {
+            localStorage.setItem("theme", "light");
+        } else {
+            localStorage.setItem("theme", "dark");
+        }
+    }
+
+    if (localStorage.getItem("theme") === "light") {
+        document.body.classList.add("light");
+    }
+</script>
+
+</body>
+</html>
