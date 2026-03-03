@@ -1,0 +1,61 @@
+<%- include("../partials/header") %>
+
+<div class="row">
+  <div class="col-md-6">
+
+    <% if (product.image) { %>
+      <img src="<%= product.image %>" 
+           class="img-fluid rounded shadow">
+    <% } else { %>
+      <img src="https://via.placeholder.com/500x400"
+           class="img-fluid rounded shadow">
+    <% } %>
+
+  </div>
+
+  <div class="col-md-6">
+
+    <h2><%= product.name %></h2>
+
+    <p class="text-muted"><%= product.category %></p>
+
+    <h4 class="text-success mb-3">
+      ₹ <%= product.price %>
+    </h4>
+
+    <p><%= product.description || "No description available." %></p>
+
+    <p>
+      <strong>Status:</strong> 
+      <% if (product.inStock) { %>
+        <span class="badge bg-success">In Stock</span>
+      <% } else { %>
+        <span class="badge bg-danger">Out of Stock</span>
+      <% } %>
+    </p>
+
+    <div class="mt-4">
+      <a href="/products/<%= product._id %>/edit"
+         class="btn btn-warning">
+        Edit
+      </a>
+
+      <form action="/products/<%= product._id %>?_method=DELETE"
+            method="POST"
+            class="d-inline">
+        <button type="submit"
+                class="btn btn-danger">
+          Delete
+        </button>
+      </form>
+
+      <a href="/products"
+         class="btn btn-secondary">
+        Back
+      </a>
+    </div>
+
+  </div>
+</div>
+
+<%- include("../partials/footer") %>
