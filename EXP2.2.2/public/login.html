@@ -20,6 +20,8 @@
 
 <script>
 async function login(){
+    console.log("Login clicked")   // ✅ DEBUG
+
     const res = await fetch("/api/login",{
         method:"POST",
         headers:{"Content-Type":"application/json"},
@@ -29,7 +31,10 @@ async function login(){
         })
     })
 
+    console.log("Response:", res)  // ✅ DEBUG
+
     const data = await res.json()
+    console.log("Data:", data)    // ✅ DEBUG
 
     if(data.token){
         localStorage.setItem("token",data.token)
