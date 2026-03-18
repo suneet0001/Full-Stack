@@ -1,3 +1,12 @@
+const express = require("express")
+const router = express.Router()
+
+const bcrypt = require("bcryptjs")
+const jwt = require("jsonwebtoken")
+const User = require("../models/User")
+const verifyToken = require("../middleware/authMiddleware")
+
+// REGISTER
 router.post("/register", async(req,res)=>{
     try{
         const {name,email,password} = req.body
@@ -5,8 +14,6 @@ router.post("/register", async(req,res)=>{
         if(!name || !email || !password){
             return res.status(400).json({message:"All fields required"})
         }
-
-        console.log("Incoming:", name, email)
 
         const existing = await User.findOne({email})
         if(existing){
@@ -21,14 +28,13 @@ router.post("/register", async(req,res)=>{
             password:hashed
         })
 
-        const savedUser = await user.save()
-
-        console.log("Saved:", savedUser)
+        await user.save()
 
         res.json({message:"Registered successfully"})
-    }
-    catch(err){
-        console.log("ERROR:", err)   // 🔥 IMPORTANT
-        res.status(500).json({message: err.message})
+    } catch(err){
+        console.log(err)
+        res.status(500).json({message:err.message})
     }
 })
+
+module.exports = router
