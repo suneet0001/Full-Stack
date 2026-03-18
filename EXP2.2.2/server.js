@@ -13,6 +13,10 @@ app.use(cors())
 
 app.use(express.static(path.join(__dirname, "public")))
 
+app.get("/", (req,res)=>{
+    res.sendFile(path.join(__dirname, "public", "login.html"))
+})
+
 mongoose.connect(process.env.MONGO_URI)
 .then(()=>console.log("MongoDB Atlas Connected"))
 .catch(err=>console.log(err))
