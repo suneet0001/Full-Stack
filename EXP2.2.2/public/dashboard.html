@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+    <h2>🏦 My Bank</h2>
+
+    <h3 id="balance">Balance: ₹0</h3>
+
+    <input id="amount" placeholder="Enter amount">
+
+    <button onclick="deposit()">💰 Deposit</button>
+    <button onclick="withdraw()">💸 Withdraw</button>
+
+    <button onclick="logout()">🚪 Logout</button>
+
+    <pre id="output"></pre>
+</div>
+
+<script>
+const token = localStorage.getItem("token")
+
+if(!token){
+    window.location="login.html"
+}
+
+async function getAccount(){
+    const res = await fetch("/api/account",{
+        headers:{Authorization:token}
+    })
+
+    const data = await res.json()
+
+    if(data.message){
+        alert("Session expired")
+        logout()
+    }
+
+    document.getElementById("balance").innerText =
+        "Balance: ₹" + data.balance
+}
+
+async function deposit(){
+    await fetch("/api/deposit",{
+        method:"POST",
+        headers:{
+            "Content-Type":"application/json",
+            Authorization:token
+        },
+        body:JSON.stringify({amount:amount.value})
+    })
+    getAccount()
+}
+
+async function withdraw(){
+    const res = await fetch("/api/withdraw",{
+        method:"POST",
+        headers:{
+            "Content-Type":"application/json",
+            Authorization:token
+        },
+        body:JSON.stringify({amount:amount.value})
+    })
+
+    const data = await res.json()
+    if(data.message === "Insufficient balance"){
+        alert(data.message)
+    }
+
+    getAccount()
+}
+
+function logout(){
+    localStorage.removeItem("token")
+    window.location="login.html"
+}
+
+getAccount()
+</script>
+
+</body>
+</html>

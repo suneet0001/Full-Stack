@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+    <h2>🔐 Login</h2>
+
+    <input id="email" placeholder="Email">
+    <input id="password" type="password" placeholder="Password">
+
+    <button onclick="login()">Login</button>
+
+    <p style="margin-top:10px;">
+        <a href="register.html">Create Account</a>
+    </p>
+</div>
+
+<script>
+async function login(){
+    const res = await fetch("/api/login",{
+        method:"POST",
+        headers:{"Content-Type":"application/json"},
+        body:JSON.stringify({
+            email:email.value,
+            password:password.value
+        })
+    })
+
+    const data = await res.json()
+
+    if(data.token){
+        localStorage.setItem("token",data.token)
+        window.location="dashboard.html"
+    } else {
+        alert("Login Failed")
+    }
+}
+</script>
+
+</body>
+</html>
