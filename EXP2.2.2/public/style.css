@@ -13,7 +13,6 @@ body{
     align-items:center;
 }
 
-/* Glass Card */
 .container{
     width:320px;
     padding:25px;
@@ -25,12 +24,10 @@ body{
     color:white;
 }
 
-/* Heading */
 h2{
     margin-bottom:15px;
 }
 
-/* Inputs */
 input{
     width:100%;
     padding:10px;
@@ -40,7 +37,6 @@ input{
     outline:none;
 }
 
-/* Buttons */
 button{
     width:100%;
     padding:10px;
@@ -59,7 +55,6 @@ button:hover{
     color:black;
 }
 
-/* Links */
 a{
     color:#fff;
     font-size:14px;
@@ -70,16 +65,8 @@ a:hover{
     text-decoration:underline;
 }
 
-/* Balance Card */
 #balance{
     margin:15px 0;
     font-size:20px;
     font-weight:bold;
-}
-
-/* Output */
-pre{
-    margin-top:10px;
-    font-size:12px;
-    color:#ddd;
 }
